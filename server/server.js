@@ -25,6 +25,18 @@ io.on('connection',(socket)=>{
 	// 	text:"hey you there?",
 	// 	createdAt:123
 	// })
+	//send a message to user when they join
+	socket.emit('newMessage',{
+		from:'Admin',
+		text:"Welcome to the chat App",
+		createdAt:new Date().getTime()
+	})
+	//let every other user know that a new user joined
+	socket.broadcast.emit('newMessage',{
+		from:'Admin',
+		text:'New User Joined the room',
+		createdAt:new Date().getTime()
+	})
 	socket.on("createMessage",(newMessage)=>{
 		console.log("Incoming Message",newMessage)
 		io.emit('newMessage',{
@@ -32,6 +44,11 @@ io.on('connection',(socket)=>{
 			text:newMessage.text,
 			createdAt:new Date().getTime()
 		})
+		// socket.broadcast.emit('newMessage',{
+		// 	from:newMessage.from,
+		// 	text:newMessage.text,
+		// 	createdAt: new Date().getTime()
+		// })
 	})
 	// socket.on('createEmail',(newEmail)=>{
 	// 	console.log('createEmail',newEmail)
