@@ -6,10 +6,12 @@
 			// 	to:'jen@example.com',
 			// 	text:'hey its rohan'
 			// })
-			socket.emit('createMessage',{
-				from:'jen',
-				text:"message"
-			})
+
+			
+			// socket.emit('createMessage',{
+			// 	from:'jen',
+			// 	text:"message"
+			// })
 		})
 
 		socket.on('disconnect',function(){

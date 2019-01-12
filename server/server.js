@@ -18,13 +18,20 @@ io.on('connection',(socket)=>{
 	// 	text:'Hey,Whats up',
 	// 	createdAt:123
 	// });
-	socket.emit('newMessage',{
-		from:"rohan",
-		text:"hey you there?",
-		createdAt:123
-	})
+
+
+	// socket.emit('newMessage',{
+	// 	from:"rohan",
+	// 	text:"hey you there?",
+	// 	createdAt:123
+	// })
 	socket.on("createMessage",(newMessage)=>{
 		console.log("Incoming Message",newMessage)
+		io.emit('newMessage',{
+			from:newMessage.from,
+			text:newMessage.text,
+			createdAt:new Date().getTime()
+		})
 	})
 	// socket.on('createEmail',(newEmail)=>{
 	// 	console.log('createEmail',newEmail)
