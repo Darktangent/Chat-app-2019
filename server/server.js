@@ -4,7 +4,7 @@ const publicPath=path.join(__dirname, '../public');
 const express=require('express');
 const socketIO=require("socket.io")
 
-const {generateMessage}=require('./utils/message')
+const {generateMessage,generateLocationMessage}=require('./utils/message')
 
 const port=process.env.PORT ||3000;
 console.log(publicPath)
@@ -31,7 +31,7 @@ io.on('connection',(socket)=>{
 		// })
 	})
 	socket.on('createLocationMessage',(coords)=>{
-		io.emit('newMessage',generateMessage('Admin',`${coords.latitude},${coords.longitude}`))
+		io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude))
 	})
 	// socket.on('createEmail',(newEmail)=>{
 	// 	console.log('createEmail',newEmail)

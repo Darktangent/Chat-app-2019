@@ -8,4 +8,11 @@ let generateMessage=(from,text)=>{
 		createdAt:new Date().getTime()
 	}
 }
-module.exports={generateMessage};
+let generateLocationMessage=(from,latitude,longitude)=>{
+	return{
+		from,
+		url:`https://www.google.com/search?q=${latitude},${longitude}`,
+		createdAt:new Date().getTime()
+	}
+}
+module.exports={generateMessage,generateLocationMessage};
