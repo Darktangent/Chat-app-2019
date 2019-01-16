@@ -10,14 +10,22 @@ socket.on('disconnect', function () {
 });
 //listening for newMessage
 socket.on('newMessage', function (message) {
-  let formattedTime=moment(message.createdAt).format('h:mm a')
-  console.log('newMessage', message);
-  var li = jQuery('<li></li>');
-  li.text(`${message.from} ${formattedTime}: ${message.text}`);
+let formattedTime=moment(message.createdAt).format('h:mm a')
+let template=jQuery("#message-template").html();
+let html=Mustache.render(template,{
+  text:message.text
 
-  jQuery('#messages').append(li);
+})
+jQuery('#messages').append(html);
+
+
+  // console.log('newMessage', message);
+  // var li = jQuery('<li></li>');
+  // li.text(`${message.from} ${formattedTime}: ${message.text}`);
+  //
+  // jQuery('#messages').append(li);
 });
-
+//location segment
 socket.on('newLocationMessage', function (message) {
   let formattedTime=moment(message.createdAt).format('h:mm a')
   var li = jQuery('<li></li>');

@@ -22,14 +22,24 @@
 
 	</form>
 	<button id="send-location">Send Location</button>
+
+		</div>
+		<div align="center" style="border:1px solid red">
+				<p>Application created by-Rohan Ganguly
+				</p>
 		</div>
 
 	</div>
+	<script id="message-template" type="text/template">
+
+		<p>{{text}}</p>
+	</script>
 
 
 <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 <script type="text/javascript" src="/js/libs/jquery-3.3.1.min.js"></script>
 <script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 <script src="/js/index.js"></script>
+<script src="./js/libs/mustache.js"></script>
 </body>
 </html>
