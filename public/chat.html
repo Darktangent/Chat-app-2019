@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="/css/styles.css">
+
+	<title>Chat | ChatApp</title>
+</head>
+<body class="chat">
+	<div class="chat__sidebar">
+		<h3>Users</h3>
+		<div id="users"></div>
+	</div>
+	<!-- main section  -->
+	<div class="chat__main">
+		<ol id="messages" class="chat__messages">
+
+		</ol>
+		<div class="chat__footer">
+			<form id="message-form">
+		<input autocomplete="off"  type="text" name="message" placeholder="Message" />
+		<button>Send</button>
+
+	</form>
+	<button id="send-location">Send Location</button>
+
+		</div>
+		<div align="center" style="border:1px solid red">
+				<p>Application created by-Rohan Ganguly
+				</p>
+		</div>
+
+	</div>
+	<script id="message-template" type="text/template">
+
+		<li class="message">
+			<div class="message__title"></div>
+			<h4>{{from}}</h4>
+			<span>{{createdAt}}</span>
+			<div class="message__body">
+				<p>{{text}}</p>
+			</div>
+
+		</li>
+	</script>
+	<!-- location template -->
+	<script id="location-message-template" type="text/template">
+
+		<li class="message">
+			<div class="message__title"></div>
+			<h4>{{from}}</h4>
+			<span>{{createdAt}}</span>
+			<div class="message__body">
+				<p>
+					<a href="{{url}}" target=_blank>My Current Location</a>
+				</p>
+			</div>
+
+		</li>
+	</script>
+	<!-- end location  -->
+
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/js/libs/jquery-3.3.1.min.js"></script>
+<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+<script src="/js/chat.js"></script>
+<script src="./js/libs/mustache.js"></script>
+</body>
+</html>
