@@ -3,7 +3,6 @@ const http=require("http");
 const publicPath=path.join(__dirname, '../public');
 const express=require('express');
 const socketIO=require("socket.io")
-
 const {generateMessage,generateLocationMessage}=require('./utils/message')
 
 const port=process.env.PORT ||3000;
@@ -15,14 +14,14 @@ app.use(express.static(publicPath))
 let io=socketIO(server);
 io.on('connection',(socket)=>{
 	console.log("new user connected")
-	
+
 	//send a message to user when they join
 	socket.emit('newMessage',generateMessage("Admin","Welcome to the chat app"))
 	//let every other user know that a new user joined
 	socket.broadcast.emit('newMessage',generateMessage("Admin","New user joined the room"))
-	socket.on("createMessage",(newMessage,callback)=>{
-		console.log("Incoming Message",newMessage)
-		io.emit('newMessage',generateMessage(newMessage.from,newMessage.text))
+	socket.on("createMessage",(message,callback)=>{
+		console.log("Incoming Message",message)
+		io.emit('newMessage',generateMessage(message.from,message.text))
 		callback('This is from the server');
 		// socket.broadcast.emit('newMessage',{
 		// 	from:newMessage.from,
