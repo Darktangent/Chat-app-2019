@@ -15,9 +15,18 @@ function scrollToBottom(){
     messages.scrollTop(scrollHeight)
   }
 }
-
+//joining a room
 socket.on('connect', function () {
-  console.log('Connected to server');
+  // console.log('Connected to server');
+  let params=jQuery.deparam(window.location.search);
+  socket.emit('join',params,function(err){
+      if(err){
+        alert(err)
+        window.location.href='/';
+      }else{
+        console.log("No error")
+      }
+  })
 });
 
 socket.on('disconnect', function () {
