@@ -16,15 +16,18 @@ let io=socketIO(server);
 io.on('connection',(socket)=>{
 	console.log("new user connected")
 
-	//send a message to user when they join
-	socket.emit('newMessage',generateMessage("Admin","Welcome to the chat app"))
-	//let every other user know that a new user joined
-	socket.broadcast.emit('newMessage',generateMessage("Admin","New user joined the room"))
+
 	//join event listener
 socket.on('join',(params,callback)=>{
 if(!isRealString(params.name) || !isRealString(params.room)){
 	callback("Name and room name required")
 }
+socket.join(params.room);
+
+//send a message to user when they join
+socket.emit('newMessage',generateMessage("Admin","Welcome to the chat app"))
+//let every other user know that a new user joined
+socket.broadcast.to(params.room).emit('newMessage',generateMessage("Admin",`${params.name} has joined the room`))
 callback()
 })
 
