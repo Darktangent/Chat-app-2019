@@ -46,20 +46,21 @@ callback()
 	//createmessage event listener
 	socket.on("createMessage",(message,callback)=>{
 		console.log("Incoming Message",message)
-		io.emit('newMessage',generateMessage(message.from,message.text))
+		let user=users.getUser(socket.id);
+		if(user && isRealString(message.text)){
+			io.to(user.room).emit('newMessage',generateMessage(user.name,message.text))
+		}
+
 		callback('This is from the server');
-		// socket.broadcast.emit('newMessage',{
-		// 	from:newMessage.from,
-		// 	text:newMessage.text,
-		// 	createdAt: new Date().getTime()
-		// })
-	})
+		})
 	socket.on('createLocationMessage',(coords)=>{
-		io.emit('newLocationMessage',generateLocationMessage('Admin',coords.latitude,coords.longitude))
+		let user=users.getUser(socket.id)
+		if(user){
+			io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,coords.latitude,coords.longitude))
+		}
+
 	})
-	// socket.on('createEmail',(newEmail)=>{
-	// 	console.log('createEmail',newEmail)
-	// })
+
 	socket.on("disconnect",()=>{
 		console.log("Client disconnected")
 		let user=users.removeUser(socket.id);
